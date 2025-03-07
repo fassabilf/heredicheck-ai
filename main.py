@@ -8,6 +8,7 @@ from typing import List
 from torch_geometric.data import Data
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pickle
+from fastapi.middleware.cors import CORSMiddleware
 
 # === 1. Load Model GNN dan TF-IDF Vectorizer ===
 from model import GNNModel  # Pastikan file model.py berisi definisi arsitektur GNN
@@ -24,8 +25,25 @@ model = GNNModel(in_channels=input_dim, hidden_channels=64, out_channels=6)
 model.load_state_dict(torch.load("gnn_model_weights.pt"))
 model.eval()  # Set model ke mode evaluasi
 
+from fastapi.middleware.cors import CORSMiddleware
+
 # === 2. Inisialisasi FastAPI ===
 app = FastAPI(title="Medical Predictive API with GNN", version="1.1")
+
+# === 2.1 Tambahkan CORS Middleware ===
+origins = [
+    "http://localhost:3000",  
+    "https://heredicheck.vercel.app/"  
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  
+    allow_credentials=True,
+    allow_methods=["*"],  
+    allow_headers=["*"],  
+)
+
 
 # === 3. Preprocessing Function ===
 def clean_text(text):
