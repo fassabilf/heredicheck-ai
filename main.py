@@ -30,18 +30,18 @@ from fastapi.middleware.cors import CORSMiddleware
 # === 2. Inisialisasi FastAPI ===
 app = FastAPI(title="Medical Predictive API with GNN", version="1.1")
 
-# === 2.1 Tambahkan CORS Middleware ===
 origins = [
     "http://localhost:3000",  
-    "https://heredicheck.vercel.app/"  
+    "https://heredicheck.vercel.app",  # Allow Vercel frontend
+    "https://api-heredicheck.up.railway.app"  # Allow backend itself
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  
+    allow_origins=origins,  # Allow only required origins
     allow_credentials=True,
-    allow_methods=["*"],  
-    allow_headers=["*"],  
+    allow_methods=["*"],  # Allow all methods (GET, POST, etc.)
+    allow_headers=["*"],  # Allow all headers
 )
 
 
