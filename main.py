@@ -14,7 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from model import GNNModel  # Pastikan file model.py berisi definisi arsitektur GNN
 
 # Inisialisasi ulang model GNN
-hidden_channels = 64
+hidden_channels = 1
 out_channels = 6  # Jumlah penyakit target
 # Load TF-IDF Vectorizer
 with open("tfidf.pkl", "rb") as f:
