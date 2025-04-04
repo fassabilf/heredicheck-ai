@@ -21,7 +21,7 @@ with open("tfidf.pkl", "rb") as f:
     tfidf_vectorizer = pickle.load(f)
 
 input_dim = len(tfidf_vectorizer.get_feature_names_out())  # Pastikan jumlah fitur cocok
-model = GNNModel(in_channels=input_dim, hidden_channels=64, out_channels=6)
+model = GNNModel(in_channels=input_dim, hidden_channels=1, out_channels=6)
 model.load_state_dict(torch.load("gnn_model_weights.pt"))
 model.eval()  # Set model ke mode evaluasi
 
